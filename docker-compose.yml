@@ -1,0 +1,23 @@
+services:
+  server:
+    container_name: "learning_golang-embeddings-server"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    working_dir: /root/code
+    env_file:
+      - path: ./.env
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - embeddings
+    volumes:
+      - .:/root/code
+    entrypoint: ["tail", "-f", "/dev/null"]
+
+networks:
+  embeddings:
+    driver: bridge
+    name: embeddings
